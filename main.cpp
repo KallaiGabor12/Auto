@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <cmath>
 
 #include  "Settlement.h"
 
@@ -23,10 +24,27 @@ std::vector<Settlement> readFile(const std::string& path) {
     return lines;
 }
 
-int main() {
-    std::vector<Settlement> settlements = readFile("Test.txt");
-    for (auto settlement : settlements) {
-        std::cout << settlement.getName() << "\n";
+double calculateDistance(Point first,Point second) {
+    return std::sqrt(std::pow(first.getX() - second.getX(), 2) +
+                        std::pow(first.getY() - second.getY(), 2));
+}
+
+bool isEnoughFeul(const std::vector<Settlement>& settlements, double fuel) {
+    const double initalFuel = fuel;
+    for (size_t i = 1; i < settlements.size(); ++i) {
+        double distance = calculateDistance(settlements[i - 1].getLocation(), settlements[i].getLocation());
+        if (fuel < distance)
+            return false;
+
+        fuel -= distance;
+
+        if (settlements[i].has_charger())
+            fuel = initalFuel;
     }
+    return true;
+}
+
+int main() {
+    std::vector<Settlement> settlements = readFile("test.txt");
     return 0;
 }

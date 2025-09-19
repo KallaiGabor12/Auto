@@ -9,15 +9,15 @@
 class Point {
 public:
     Point() = default;
-    Point(int x, int y);
+    Point(double x, double y);
 
     void setX(int value);
-    int getX() const;
+    double getX() const;
     void setY(int value);
-    int getY();
+    double getY();
 private:
-    int x;
-    int y;
+    double x;
+    double y;
 };
 
 

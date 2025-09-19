@@ -15,7 +15,7 @@ public:
 
     void setPopulation(const int population);
 
-    std::string getName() const;
+    [[nodiscard]] std::string getName() const;
     int getPopulation() const;
     bool has_charger() const;
     Point getLocation() const;
